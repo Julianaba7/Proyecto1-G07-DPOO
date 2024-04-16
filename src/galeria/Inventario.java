@@ -84,4 +84,21 @@ public class Inventario {
 				e.printStackTrace();
 			}
 		}
+	 
+	 public boolean confirmarVenta(Pieza pieza) {
+		 
+		 boolean respuesta = administrador.confirmarSale(pieza, noDisponible);
+		 
+		 return respuesta;
+	 }
+	 
+	 public boolean confirmarDevolucion(Pieza pieza) {
+		 
+		 boolean respuesta = administrador.confirmarReturn(pieza, noDisponible);
+		 
+		 return respuesta;
+		 
+	 }
+	 
+		
 }

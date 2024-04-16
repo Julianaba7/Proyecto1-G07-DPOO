@@ -31,4 +31,27 @@ public class Administrador {
     	}
 	}
 	
+	public boolean confirmarSale(Pieza pieza, List<Pieza> noDisponible ) {
+		 
+		 boolean confirm = false;
+		 
+		 if (noDisponible.contains(pieza)) {
+			 if (pieza.getEstado().equals(EstadoPiezas.VENDIDA));
+			 confirm = true;
+		 }
+		 return confirm;
+	 }
+	 
+	 public boolean confirmarReturn(Pieza pieza, List<Pieza> noDisponible) {
+		 
+		 boolean confirm = false;
+		 
+		 if (noDisponible.contains(pieza)) {
+			 if (pieza.getEstado().equals(EstadoPiezas.DEVOLUCION));
+			 confirm = true;
+		 }
+		 return confirm;
+	 }
+	
+	
 }
