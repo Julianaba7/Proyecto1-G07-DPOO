@@ -29,12 +29,13 @@ public class Pieza {
 	protected Propietario propietario;
 	
     // Constructor para piezas que se entregan para exhibir
-    public Pieza(String titulo, String año, String lugarCreacion, String autor, Propietario propietario) {
+    public Pieza(String titulo, String año, String lugarCreacion, String autor, Propietario propietario, TipoPieza tipoPieza) {
     	this.titulo = titulo;
     	this.año = año;
     	this.lugarCreacion = lugarCreacion;
     	this.autor = autor;
     	this.propietario = propietario;
+    	this.tipoPieza = tipoPieza;
     }
 
 
@@ -57,6 +58,11 @@ public class Pieza {
 	public EstadoPiezas getEstado() {
 		return estado;
 	}
+
+	public void setEstado(EstadoPiezas estado) {
+		this.estado = estado;
+	}
+
 
 	public TipoPieza getTipoPieza() {
 		return tipoPieza;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import CONSIGNACION.Consignacion;
 import CONSIGNACION.TipoMotivo;
+import PIEZAS.EstadoPiezas;
 import PIEZAS.Pieza;
 
 public class Inventario {
@@ -68,10 +69,12 @@ public class Inventario {
 	 public void devolverPieza(Consignacion consignacion, Date currentDate) {
 		 try {
 				Pieza pieza = consignacion.getPieza();
-				if (consignacion.consignacionTerminada(currentDate)) {
+				if (consignacion.consignacionTerminada(currentDate)) {	
 					if (bodega.remove(pieza)) {
+						pieza.setEstado(EstadoPiezas.DEVOLUCION);
 						noDisponible.add(pieza);
 					} else if (exhibicion.remove(pieza)) {
+						pieza.setEstado(EstadoPiezas.DEVOLUCION);
 						noDisponible.add(pieza);
 					} else {
 						throw new Exception("La pieza no se encuentra en el inventario");
