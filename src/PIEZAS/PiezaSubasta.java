@@ -17,5 +17,18 @@ public class PiezaSubasta extends Pieza{
 		this.valorMinimo = valorMinimo;
 		this.estado = EstadoPiezas.SUBASTA;
 	}
+
+	public double getValorMinimo() {
+		return valorMinimo;
+	}
+
+	public double getValorInicial() {
+		return valorInicial;
+	}
+
+	
 }
+
+
+
 

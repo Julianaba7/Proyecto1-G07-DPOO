@@ -71,6 +71,7 @@ public class Pieza {
 	public Propietario getPropietario() {
 		return propietario;
 	}
+	
 
     
 }

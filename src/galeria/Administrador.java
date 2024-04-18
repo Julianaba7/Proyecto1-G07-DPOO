@@ -4,6 +4,10 @@ import java.util.List;
 
 import PIEZAS.EstadoPiezas;
 import PIEZAS.Pieza;
+import PIEZAS.PiezaSubasta;
+import PIEZAS.PiezaVenta;
+import USUARIOS.Comprador;
+import USUARIOS.Usuario;
 
 public class Administrador {
 	
@@ -31,6 +35,7 @@ public class Administrador {
     	}
 	}
 	
+	//EL administrador puede confirmar si una pieza es vendida
 	public boolean confirmarSale(Pieza pieza, List<Pieza> noDisponible ) {
 		 
 		 boolean confirm = false;
@@ -42,6 +47,7 @@ public class Administrador {
 		 return confirm;
 	 }
 	 
+	//El administrador puede confirmar si una pieza se le devolvio al propietario
 	 public boolean confirmarReturn(Pieza pieza, List<Pieza> noDisponible) {
 		 
 		 boolean confirm = false;
@@ -52,6 +58,17 @@ public class Administrador {
 		 }
 		 return confirm;
 	 }
+	
+	public void verificarComprador(Comprador comprador, PiezaVenta pieza) {
+		double valorPieza = pieza.getValorFijo();
+		double dineroComprador = comprador.getPoderAdquisitivo();
+		
+		if (valorPieza <= dineroComprador) {
+			comprador.setVerificadoParaCompra(true);
+		}else {
+			comprador.setVerificadoParaCompra(false);
+		}
+	}
 	
 	
 }

@@ -51,8 +51,8 @@ public class InventarioTest {
         Propietario propietario2 = new Propietario("P2", "Propietario 2", "PROP", "PROP");
         
         //Initialize the type of the pieces
-        TipoPieza tipoPieza1 = new Pintura(1.5, 2.5, "Acuarela", "Oleo sobre lienzo", "Barroco");
-        TipoPieza tipoPieza2 = new Escultura(1.5, 2.5, 3.5, "Bronce", "Tallado");
+        tipoPieza1 = new Pintura(1.5, 2.5, "Acuarela", "Oleo sobre lienzo", "Barroco");
+        tipoPieza2 = new Escultura(1.5, 2.5, 3.5, "Bronce", "Tallado");
         
         // Initialize the pieces
         //NOTA: Creamos piezaExhibición para que la prueba de exhibición funcione y y una piezaVenta para que le prueba de bodega funcione
@@ -114,7 +114,7 @@ public class InventarioTest {
         
     }
     @Test
-    public void confirmarEstadoDevuelto() {
+    public void confirmarEstadoDevueltoTest() {
     	//Test that the piece has the DEVOLUCION state after it is removed from the list and added to the noDisponible List
     	inventario.consignarPieza(consignacion1);
     	inventario.devolverPieza(consignacion1, date3);
@@ -130,7 +130,33 @@ public class InventarioTest {
         // Test that an exception is thrown if the piece is not in the inventory
         assertThrows(IllegalArgumentException.class, () -> inventario.devolverPieza(consignacion1, date1));
     }
-
+    
+    //@Test
+    //public void confirmarVentaTest() {
+    	// Test that a piece has been sold
+    	//TODO TODO TODO TODO TODO
+    	//NO ESTA BIEN IMPLEMENTADO
+    	//inventario.consignarPieza(consignacion1);
+    	//inventario.devolverPieza(consignacion1, date3);
+    	//assertTrue(inventario.confirmarVenta(pieza1));
+    	
+    	//inventario.consignarPieza(consignacion2);
+    	//inventario.devolverPieza(consignacion2, date5);
+    	//assertTrue(inventario.confirmarVenta(pieza2));
+    //}
+    
+    @Test
+    public void confirmarDevolucionTest() {
+    	// Test that a piece has been returned
+    	inventario.consignarPieza(consignacion1);
+    	inventario.devolverPieza(consignacion1, date3);
+    	assertTrue(inventario.confirmarDevolucion(pieza1));
+    	
+    	inventario.consignarPieza(consignacion2);
+    	inventario.devolverPieza(consignacion2, date5);
+    	assertTrue(inventario.confirmarDevolucion(pieza2));
+    }
+    
     @Test
     public void consignacionTerminadaTest() {
         // Test that the consignacionTerminada method returns true if the current date is after the consignment end date

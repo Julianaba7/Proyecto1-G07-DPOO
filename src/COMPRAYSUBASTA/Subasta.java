@@ -2,23 +2,78 @@ package COMPRAYSUBASTA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import PIEZAS.Pieza;
+import PIEZAS.PiezaSubasta;
 import USUARIOS.Comprador;
 import USUARIOS.Operador;
+import galeria.Administrador;
 
 public class Subasta {
 	
-	private ArrayList<Pieza> piezas;//Una subasta tiene una lista de piezas a subastar
+	private List<PiezaSubasta> piezas;//Una subasta tiene una lista de piezas a subastar
 	
-	private HashMap<String, Comprador> compradores; //Una subasta tiene una tabla de hash de compradores
-	//Si nuestra estructura de datos es una tabla de hash facilita el acceso a los compradores que poseen un id único.
+	private List<Comprador> compradores; //Una subasta tiene una lista de compradores
 	
-	private Operador operador; //Una subasta tiene un usuario operador que la administra
+	//private Operador operador; //Una subasta tiene un usuario operador que la administra
 	
-	public Subasta(Operador operador) {
-		this.piezas = new ArrayList<Pieza>();
-		this.compradores = new HashMap<String, Comprador>();
-		this.operador = operador;
+	public Subasta() {
+		this.piezas = new ArrayList<PiezaSubasta>();
+		this.compradores = new ArrayList<Comprador>();
+		//this.operador = operador;
 	}
+
+	public List<PiezaSubasta> getPiezas() {
+		return piezas;
+	}
+
+	public List<Comprador> getCompradores() {
+		return compradores;
+	}
+	
+	//public Operador getOperador() {
+		//return operador;
+	//}
+	
+	public void agregarPieza(PiezaSubasta pieza) {
+		piezas.add(pieza);
+	}
+	
+	public void agregarComprador(Comprador comprador) {
+		compradores.add(comprador);
+	}
+	
+	
+	public List<PiezaSubasta> calcularPiezasParaVender() {
+		
+		List<PiezaSubasta> piezasParaVender = new ArrayList<PiezaSubasta>();
+	
+		
+		for (PiezaSubasta pieza : piezas) {//Recorre las piezas
+	        double ofertaMaxima = 0; // 
+	        Comprador mejorComprador = null;
+	        
+	        for (Comprador comprador : compradores) {//Recorremos compradores
+	        	if (comprador.isVerificadoParaCompra()) {//Verifica si el comprador esta verificado con anterioridad
+	        		double ofertaComprador = comprador.getPoderAdquisitivo();
+	        		
+	        		if (ofertaComprador >= pieza.getValorInicial()) {//Verifica si la oferta del comprador es mayor o igual al valor inicial de la pieza
+	        			if (ofertaComprador > ofertaMaxima) {
+	        				ofertaMaxima = ofertaComprador;
+	        				mejorComprador = comprador;
+	        			}
+	        		}
+	        	}
+	        }
+	        if (mejorComprador != null && ofertaMaxima >= pieza.getValorMinimo()) {
+	        	
+	        	piezasParaVender.add(pieza);
+	        }
+		}
+		return piezasParaVender;
+			
+		
+	}
+
 }

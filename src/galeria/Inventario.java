@@ -4,10 +4,15 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import COMPRAYSUBASTA.Oferta;
+import COMPRAYSUBASTA.Subasta;
 import CONSIGNACION.Consignacion;
 import CONSIGNACION.TipoMotivo;
 import PIEZAS.EstadoPiezas;
 import PIEZAS.Pieza;
+import PIEZAS.PiezaSubasta;
+import PIEZAS.PiezaVenta;
+import USUARIOS.Comprador;
 
 public class Inventario {
 	
@@ -85,20 +90,76 @@ public class Inventario {
 			}
 		}
 	 
+	//ESTE METODO PERMITE AL INVENTARIO CONFIRMAR QUE SE REALIZÓ UNA VENTA
 	 public boolean confirmarVenta(Pieza pieza) {
 		 
+		 //ES RESPONSABILIDAD DEL ADMINISTRADAOR DE CONFIRMAR LA VENTA
 		 boolean respuesta = administrador.confirmarSale(pieza, noDisponible);
 		 
 		 return respuesta;
 	 }
 	 
+	//ESTE METODO PERMITE AL INVENTARIO CONFIRMAR QUE SE REALIZÓ UNA DEVOLUCION
 	 public boolean confirmarDevolucion(Pieza pieza) {
 		 
+		//ES RESPONSABILIDAD DEL ADMINISTRADAOR DE CONFIRMAR LA DEVOLUCION
 		 boolean respuesta = administrador.confirmarReturn(pieza, noDisponible);
 		 
 		 return respuesta;
 		 
 	 }
 	 
-		
+	 //ESTE METODO PERMITE REALIZA UNA VENTA
+	 public boolean venderPieza(Oferta oferta) {
+		 Boolean retorno = false;
+		 PiezaVenta pieza = oferta.getPieza();
+		 EstadoPiezas estadoPieza = pieza.getEstado();
+		 
+		 if (bodega.contains(pieza)) {
+		 
+			 if(estadoPieza.equals(EstadoPiezas.BLOQUEADA)) {
+				 retorno = false;
+			 }else if(estadoPieza.equals(EstadoPiezas.DISPONIBLE)) {
+				 pieza.setEstado(EstadoPiezas.BLOQUEADA);
+				 if(oferta.confirmarVerificacionComprador(administrador)) {
+					 pieza.setEstado(EstadoPiezas.VENDIDA);
+					 bodega.remove(pieza);
+					 noDisponible.add(pieza);
+					 retorno = true;
+				 }else {
+					 pieza.setEstado(EstadoPiezas.DISPONIBLE);
+					 retorno = false;
+				 }
+			 }else {
+				 retorno = false;
+			 }
+		 }else {
+			 retorno = false;
+		 }return retorno;
+	 }
+	
+	 //ESTE METODO PERMITE REALIZAR UNA SUBASTA
+	 public boolean realizarSubasta(Subasta subasta) {
+		 
+		 Boolean retorno = true;
+		 List<PiezaSubasta> piezas= subasta.getPiezas();
+		 
+		 //Verifica que todas las piezas esten en la bodega
+		 for(Pieza pieza: piezas) {
+			 if(!bodega.contains(pieza)) {
+				 retorno = false;
+			 }
+		 }
+		 
+		 if (retorno == true) {
+			 List<PiezaSubasta> piezasParaVender = subasta.calcularPiezasParaVender();
+			 for (Pieza pieza: piezasParaVender) {
+				 pieza.setEstado(EstadoPiezas.VENDIDA);
+				 bodega.remove(pieza);
+				 noDisponible.add(pieza);
+			 	}
+	            
+		 }
+		 return retorno;
+	 }
 }

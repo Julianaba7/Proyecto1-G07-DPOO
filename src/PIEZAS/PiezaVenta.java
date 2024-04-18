@@ -13,4 +13,9 @@ public class PiezaVenta extends Pieza{
 		this.estado = EstadoPiezas.DISPONIBLE;
 		
 	}
+
+	public double getValorFijo() {
+		return valorFijo;
+	}
+	
 }
