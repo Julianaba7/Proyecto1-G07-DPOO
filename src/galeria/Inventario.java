@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import COMPRAYSUBASTA.Oferta;
+import COMPRAYSUBASTA.Registro;
 import COMPRAYSUBASTA.Subasta;
 import CONSIGNACION.Consignacion;
 import CONSIGNACION.TipoMotivo;
@@ -13,6 +14,7 @@ import PIEZAS.Pieza;
 import PIEZAS.PiezaSubasta;
 import PIEZAS.PiezaVenta;
 import USUARIOS.Comprador;
+import USUARIOS.Operador;
 
 public class Inventario {
 	
@@ -143,6 +145,7 @@ public class Inventario {
 		 
 		 Boolean retorno = true;
 		 List<PiezaSubasta> piezas= subasta.getPiezas();
+		 Operador operador = subasta.getOperador();
 		 
 		 //Verifica que todas las piezas esten en la bodega
 		 for(Pieza pieza: piezas) {
@@ -152,7 +155,7 @@ public class Inventario {
 		 }
 		 
 		 if (retorno == true) {
-			 List<PiezaSubasta> piezasParaVender = subasta.calcularPiezasParaVender();
+			 List<PiezaSubasta> piezasParaVender = subasta.calcularPiezasParaVender(operador);
 			 for (Pieza pieza: piezasParaVender) {
 				 pieza.setEstado(EstadoPiezas.VENDIDA);
 				 bodega.remove(pieza);
@@ -160,6 +163,7 @@ public class Inventario {
 			 	}
 	            
 		 }
+		 
 		 return retorno;
 	 }
 }

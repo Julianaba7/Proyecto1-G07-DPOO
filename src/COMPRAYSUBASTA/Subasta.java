@@ -16,12 +16,12 @@ public class Subasta {
 	
 	private List<Comprador> compradores; //Una subasta tiene una lista de compradores
 	
-	//private Operador operador; //Una subasta tiene un usuario operador que la administra
+	private Operador operador; //Una subasta tiene un usuario operador que la administra
 	
-	public Subasta() {
+	public Subasta(Operador operador) {
 		this.piezas = new ArrayList<PiezaSubasta>();
 		this.compradores = new ArrayList<Comprador>();
-		//this.operador = operador;
+		this.operador = operador;
 	}
 
 	public List<PiezaSubasta> getPiezas() {
@@ -32,9 +32,9 @@ public class Subasta {
 		return compradores;
 	}
 	
-	//public Operador getOperador() {
-		//return operador;
-	//}
+	public Operador getOperador() {
+		return operador;
+	}
 	
 	public void agregarPieza(PiezaSubasta pieza) {
 		piezas.add(pieza);
@@ -45,7 +45,7 @@ public class Subasta {
 	}
 	
 	
-	public List<PiezaSubasta> calcularPiezasParaVender() {
+	public List<PiezaSubasta> calcularPiezasParaVender(Operador operador) {
 		
 		List<PiezaSubasta> piezasParaVender = new ArrayList<PiezaSubasta>();
 	
@@ -67,6 +67,8 @@ public class Subasta {
 	        	}
 	        }
 	        if (mejorComprador != null && ofertaMaxima >= pieza.getValorMinimo()) {
+	        	Registro registro = new Registro(pieza, mejorComprador);
+	        	operador.añadirRegistro(registro);	        	
 	        	
 	        	piezasParaVender.add(pieza);
 	        }

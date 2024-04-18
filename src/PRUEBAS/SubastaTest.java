@@ -22,6 +22,7 @@ import PIEZAS.PiezaVenta;
 import PIEZAS.Pintura;
 import PIEZAS.TipoPieza;
 import USUARIOS.Comprador;
+import USUARIOS.Operador;
 import USUARIOS.Propietario;
 import galeria.Administrador;
 import galeria.Inventario;
@@ -33,6 +34,7 @@ public class SubastaTest {
     private static List<Consignacion> consignaciones;
     private static Subasta subasta1;
     private static List<Comprador> compradores;
+    private static Operador operador;
 
     @Before
     public void setUp() throws ParseException {
@@ -101,10 +103,12 @@ public class SubastaTest {
 	    compradores.add(new Comprador("comprador4", "Comprador 4", "comprador4", "comprador4", 200.0));
 	    compradores.add(new Comprador("comprador5", "Comprador 5", "comprador5", "comprador5", 1000.0));
 	    compradores.add(new Comprador("comprador6", "Comprador 6", "comprador6", "comprador6", 900.0));
-
+	    
+	    //Inicializa el operador
+	    operador = new Operador("OP", "OP", "OP", "OP");
         
         //Inicializar las subastas
-        subasta1 = new Subasta();
+        subasta1 = new Subasta(operador);
         
         for (PiezaSubasta pieza : piezas) {
         	subasta1.agregarPieza(pieza);
