@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import PAGOS.Pago;
 import PIEZAS.Pieza;
 import PIEZAS.PiezaSubasta;
+import USUARIOS.Cajero;
 import USUARIOS.Comprador;
 import USUARIOS.Operador;
 import galeria.Administrador;
@@ -68,7 +70,11 @@ public class Subasta {
 	        }
 	        if (mejorComprador != null && ofertaMaxima >= pieza.getValorMinimo()) {
 	        	Registro registro = new Registro(pieza, mejorComprador);
-	        	operador.añadirRegistro(registro);	        	
+	        	operador.añadirRegistro(registro);	  
+	        	mejorComprador.getCompras().add(pieza);
+	        	
+	        	Pago pago = new Pago(mejorComprador.getPoderAdquisitivo(), mejorComprador.getMetodopago());
+				Cajero.procesarPago(pago);
 	        	
 	        	piezasParaVender.add(pieza);
 	        }

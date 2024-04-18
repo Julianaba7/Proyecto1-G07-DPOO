@@ -131,19 +131,6 @@ public class InventarioTest {
         assertThrows(IllegalArgumentException.class, () -> inventario.devolverPieza(consignacion1, date1));
     }
     
-    //@Test
-    //public void confirmarVentaTest() {
-    	// Test that a piece has been sold
-    	//TODO TODO TODO TODO TODO
-    	//NO ESTA BIEN IMPLEMENTADO
-    	//inventario.consignarPieza(consignacion1);
-    	//inventario.devolverPieza(consignacion1, date3);
-    	//assertTrue(inventario.confirmarVenta(pieza1));
-    	
-    	//inventario.consignarPieza(consignacion2);
-    	//inventario.devolverPieza(consignacion2, date5);
-    	//assertTrue(inventario.confirmarVenta(pieza2));
-    //}
     
     @Test
     public void confirmarDevolucionTest() {

@@ -9,12 +9,16 @@ import COMPRAYSUBASTA.Registro;
 import COMPRAYSUBASTA.Subasta;
 import CONSIGNACION.Consignacion;
 import CONSIGNACION.TipoMotivo;
+import PAGOS.Pago;
 import PIEZAS.EstadoPiezas;
 import PIEZAS.Pieza;
 import PIEZAS.PiezaSubasta;
 import PIEZAS.PiezaVenta;
+import USUARIOS.Cajero;
 import USUARIOS.Comprador;
+import USUARIOS.Empleado;
 import USUARIOS.Operador;
+import USUARIOS.Propietario;
 
 public class Inventario {
 	
@@ -124,9 +128,18 @@ public class Inventario {
 			 }else if(estadoPieza.equals(EstadoPiezas.DISPONIBLE)) {
 				 pieza.setEstado(EstadoPiezas.BLOQUEADA);
 				 if(oferta.confirmarVerificacionComprador(administrador)) {
+					 
+					 
 					 pieza.setEstado(EstadoPiezas.VENDIDA);
 					 bodega.remove(pieza);
 					 noDisponible.add(pieza);
+					 oferta.getComprador().getCompras().add(pieza);
+					 
+					 //SE DEBE PROCESAR EL PAGO CUANDO SE REALIZA UNA VENTA
+					 Pago pago = new Pago(pieza.getValorFijo(), oferta.getComprador().getMetodopago());
+					 Cajero.procesarPago(pago);
+					 
+					 
 					 retorno = true;
 				 }else {
 					 pieza.setEstado(EstadoPiezas.DISPONIBLE);
@@ -157,13 +170,34 @@ public class Inventario {
 		 if (retorno == true) {
 			 List<PiezaSubasta> piezasParaVender = subasta.calcularPiezasParaVender(operador);
 			 for (Pieza pieza: piezasParaVender) {
+				 
 				 pieza.setEstado(EstadoPiezas.VENDIDA);
 				 bodega.remove(pieza);
 				 noDisponible.add(pieza);
+				 
 			 	}
 	            
-		 }
-		 
+		 }	 
 		 return retorno;
 	 }
+	 
+	 //ESTE METODO PERMITE A UN CAJERO CONSULTAR EL ESTADO DE UNA DE SUS PIEZAS
+	 public EstadoPiezas consultarEstadoPiezaPropietario(Propietario propietario, Pieza pieza) throws Exception {
+		 
+		 if (propietario.getPiezasPropias().contains(pieza)) {
+			 return pieza.getEstado();
+		 }else {
+			 throw new Exception("La pieza no está las piezas del propietario");
+		 }
+	 }
+	 
+	 public String consultarInformacionPieza(Pieza pieza, Empleado empleado) {
+		 String info = null;
+		 
+		 info = empleado.getInformacion(pieza);
+		 
+		 return info;
+	 }
+	 
+
 }

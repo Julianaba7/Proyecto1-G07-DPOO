@@ -15,12 +15,14 @@ import org.junit.Test;
 
 import COMPRAYSUBASTA.Subasta;
 import CONSIGNACION.Consignacion;
+import PAGOS.MetodoPago;
 import PIEZAS.Escultura;
 import PIEZAS.Pieza;
 import PIEZAS.PiezaSubasta;
 import PIEZAS.PiezaVenta;
 import PIEZAS.Pintura;
 import PIEZAS.TipoPieza;
+import USUARIOS.Cajero;
 import USUARIOS.Comprador;
 import USUARIOS.Operador;
 import USUARIOS.Propietario;
@@ -35,6 +37,7 @@ public class SubastaTest {
     private static Subasta subasta1;
     private static List<Comprador> compradores;
     private static Operador operador;
+    private static Cajero cajero;
 
     @Before
     public void setUp() throws ParseException {
@@ -97,13 +100,15 @@ public class SubastaTest {
         consignaciones.add(new Consignacion(piezas.get(5), propietario6, date11, date12));
         
         //Inicializar los compradores
-        compradores.add(new Comprador("comprador1", "Comprador 1", "comprador1", "comprador1", 500.0));
-        compradores.add(new Comprador("comprador2", "Comprador 2", "comprador2", "comprador2", 100.0));
-	    compradores.add(new Comprador("comprador3", "Comprador 3", "comprador3", "comprador3", 700.0));
-	    compradores.add(new Comprador("comprador4", "Comprador 4", "comprador4", "comprador4", 200.0));
-	    compradores.add(new Comprador("comprador5", "Comprador 5", "comprador5", "comprador5", 1000.0));
-	    compradores.add(new Comprador("comprador6", "Comprador 6", "comprador6", "comprador6", 900.0));
+        compradores.add(new Comprador("comprador1", "Comprador 1", "comprador1", "comprador1", 500.0, MetodoPago.EFECTIVO));
+        compradores.add(new Comprador("comprador2", "Comprador 2", "comprador2", "comprador2", 100.0, MetodoPago.EFECTIVO));
+	    compradores.add(new Comprador("comprador3", "Comprador 3", "comprador3", "comprador3", 700.0, MetodoPago.EFECTIVO));
+	    compradores.add(new Comprador("comprador4", "Comprador 4", "comprador4", "comprador4", 200.0, MetodoPago.EFECTIVO));
+	    compradores.add(new Comprador("comprador5", "Comprador 5", "comprador5", "comprador5", 1000.0, MetodoPago.EFECTIVO));
+	    compradores.add(new Comprador("comprador6", "Comprador 6", "comprador6", "comprador6", 900.0, MetodoPago.EFECTIVO));
 	    
+	    //Initialize Casher
+        cajero = new Cajero("CASH", "CASH", "CASH", "CASH");
 	    //Inicializa el operador
 	    operador = new Operador("OP", "OP", "OP", "OP");
         
@@ -155,6 +160,39 @@ public class SubastaTest {
     	
     }
     
+    @Test
+    public void verificarRegistrosOperador() {
+    	//SE DEBEN CONSIGNAR LAS PIEZAS
+    	for (Consignacion consignacion: consignaciones) {
+        	inventario.consignarPieza(consignacion);
+        }
+    	
+    	//LOS COMPRADORES DEBEN ESTAR VERIFICADOS
+    	for (Comprador comprador: compradores) {
+    		comprador.setVerificadoParaCompra(true);
+    	}
+    	
+    	inventario.realizarSubasta(subasta1);
+    	
+    	assertTrue(operador.getRegistros().size() == 6);
+    }
+    
+    @Test
+    public void obtenerPagoAlSubastar() {
+    	//SE DEBEN CONSIGNAR LAS PIEZAS
+    	for (Consignacion consignacion: consignaciones) {
+        	inventario.consignarPieza(consignacion);
+        }
+    	
+    	//LOS COMPRADORES DEBEN ESTAR VERIFICADOS
+    	for (Comprador comprador: compradores) {
+    		comprador.setVerificadoParaCompra(true);
+    	}
+    	
+    	inventario.realizarSubasta(subasta1);
+		assertFalse(Cajero.getPagos().isEmpty());
+		
+	}
     
     @After
     public void tearDown() {
