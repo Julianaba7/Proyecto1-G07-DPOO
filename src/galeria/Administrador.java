@@ -25,7 +25,22 @@ public class Administrador {
 		this.login = login;
 		this.password = password;
 	}
+	
+	
 		
+	public String getId() {
+		return id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public String getPassword() {
+		return password;
+	}
+
 	//El administrador es el unico que puede hacer la consignación
 	public void consignar(Pieza pieza, List<Pieza> bodega, List<Pieza> exhibicion) {
 		if (pieza.getEstado().equals(EstadoPiezas.EXHIBIDA)){
