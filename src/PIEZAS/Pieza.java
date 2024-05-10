@@ -3,7 +3,7 @@ package PIEZAS;
 import USUARIOS.Propietario;
 
 //CLASE PIEZA-ESTA CLASE ES EL PILAR DE LA MAYORIA DEL PROGRAMA
-public class Pieza {
+public abstract class Pieza {
 	
 	protected String titulo;
 	
@@ -71,6 +71,8 @@ public class Pieza {
 	public Propietario getPropietario() {
 		return propietario;
 	}
+	
+	public abstract double getValorFijo();
 	
 
     

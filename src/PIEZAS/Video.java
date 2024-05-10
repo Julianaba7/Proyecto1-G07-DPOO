@@ -16,4 +16,27 @@ public class Video extends TipoPieza{
 	}
 	
 	
+	
+	public double getDuracion() {
+		return duracion;
+	}
+
+
+
+	public String getFormato() {
+		return formato;
+	}
+
+
+
+	public String getResolucion() {
+		return resolucion;
+	}
+
+
+
+	@Override
+    public String toString() {
+		return "Video";
+	}
 }

@@ -19,5 +19,34 @@ public class Impresion extends TipoPieza {
 	}
 	
 	
+	
+	public double getLargo() {
+		return largo;
+	}
+
+
+
+	public double getAncho() {
+		return ancho;
+	}
+
+
+
+	public String getTipoImpresion() {
+		return tipoImpresion;
+	}
+
+
+
+	public String getTipoPapel() {
+		return tipoPapel;
+	}
+
+
+
+	@Override
+    public String toString() {
+		return "Impresion";
+	}
 
 }

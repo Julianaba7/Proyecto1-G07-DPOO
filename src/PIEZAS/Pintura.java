@@ -20,4 +20,41 @@ public class Pintura extends TipoPieza{
 		this.tecnicaUtilizada= tecnicaUtilizada;
 		this.estilo = estilo;
 	}
+	
+	
+	
+	public double getAlto() {
+		return alto;
+	}
+
+
+
+	public double getAncho() {
+		return ancho;
+	}
+
+
+
+	public String getTipoPintura() {
+		return tipoPintura;
+	}
+
+
+
+	public String getTecnicaUtilizada() {
+		return tecnicaUtilizada;
+	}
+
+
+
+	public String getEstilo() {
+		return estilo;
+	}
+
+
+
+	@Override
+    public String toString() {
+		return "Pintura";
+	}
 }

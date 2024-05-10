@@ -9,4 +9,8 @@ public class PiezaExhibicion extends Pieza{
 		super(titulo, año, lugarCreacion, autor, propietario, tipoPieza);
 		this.estado = EstadoPiezas.EXHIBIDA;
 	}
+	
+	public double getValorFijo() {
+		return 0.0;
+	}
 }

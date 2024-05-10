@@ -18,4 +18,8 @@ public class PiezaVenta extends Pieza{
 		return valorFijo;
 	}
 	
+	@Override
+    public String toString() {
+		return "PiezaVenta";
+	}
 }

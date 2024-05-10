@@ -26,6 +26,14 @@ public class PiezaSubasta extends Pieza{
 		return valorInicial;
 	}
 
+	public double getValorFijo() {
+		return 0.0;
+	}
+	
+	@Override
+    public String toString() {
+		return "PiezaSubasta";
+	}
 	
 }
 

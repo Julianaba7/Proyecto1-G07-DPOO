@@ -17,4 +17,21 @@ public class Fotografia extends TipoPieza{
 	
 	
 	
+	public double getLargo() {
+		return largo;
+	}
+
+	public double getAncho() {
+		return ancho;
+	}
+
+
+	public String getTecnicaUtilizada() {
+		return tecnicaUtilizada;
+	}
+
+	@Override
+    public String toString() {
+		return "Fotografia";
+	}
 }

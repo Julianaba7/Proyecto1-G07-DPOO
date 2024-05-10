@@ -22,4 +22,26 @@ public class Escultura extends TipoPieza{
 	}
 	
 	
+	
+	// Método toString() sobrescrito
+    public double getAlto() {
+		return alto;
+	}
+	public double getAncho() {
+		return ancho;
+	}
+	public double getProfundidad() {
+		return profundidad;
+	}
+	public String getMaterial() {
+		return material;
+	}
+	public String getTecnicaUtilizada() {
+		return tecnicaUtilizada;
+	}
+
+	@Override
+    public String toString() {
+		return "Escultura";
+	}
 }

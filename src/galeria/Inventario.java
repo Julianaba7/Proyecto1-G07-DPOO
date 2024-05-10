@@ -14,6 +14,7 @@ import PIEZAS.EstadoPiezas;
 import PIEZAS.Pieza;
 import PIEZAS.PiezaSubasta;
 import PIEZAS.PiezaVenta;
+import PIEZAS.TipoPieza;
 import USUARIOS.Cajero;
 import USUARIOS.Comprador;
 import USUARIOS.Empleado;
@@ -199,5 +200,48 @@ public class Inventario {
 		 return info;
 	 }
 	 
+	 
+	 //NUEVO REQ: SE ENCARGA DE VER LA HISTORIA DE UNA PIEZAS
+	 public String historiaDePiezaVendida(Oferta oferta) {
+		 String historia = "NO HAY INFORMACIÓN DE LA PIEZA";
+		 String comprador = oferta.getComprador().getNombre();
+		 PiezaVenta pieza = oferta.getPieza();
+		 if (pieza.getEstado().equals(EstadoPiezas.VENDIDA)) {
+			 String titulo = pieza.getTitulo();
+			 String año = pieza.getAño();
+			 String lugar = pieza.getLugarCreacion();
+			 String autor = pieza.getAutor();
+			 String tipoPieza = pieza.getTipoPieza().toString();
+			 Propietario propietarioAntiguo = pieza.getPropietario();
+			 String precio = String.valueOf(pieza.getValorFijo());
+			 
+			 historia = titulo + " es una/un " + tipoPieza + " creada por: " + autor + ", en el año: " + año +
+					 ", en: " + lugar + ". Le perteneció orginalmente a: " + propietarioAntiguo.getNombre() + " y fue vendida a: " +
+					 comprador + " por: " + precio; 
+		 }else {
+			 historia = "La pieza no ha sido vendida";
+		 }
+		 return historia;
+	 }
+	 
+	 //NUEVO REQ: SE ENCARGA DE VER LA HISTORIA DE UN COMPRADOR
+	 public String historiaComprador(Comprador comprador) {
+		 List<Pieza> compras = comprador.getCompras();
+		 Double precioDeLaColeccion = 0.0;
+		 String historia = "Las piezas del comprador son: "; 
+		 
+		 for (Pieza compra : compras) {
+			 
+			 historia += compra.getTitulo() + ",";	
+			 if (compra.toString().equals("PiezaVenta")) {
+				 precioDeLaColeccion += compra.getValorFijo();
+				 
+			 } else {
+				 precioDeLaColeccion += comprador.getPoderAdquisitivo();
+			 }
+		 }
+		 System.out.println(historia + ". La coleccion entera tiene un precio de: "+ String.valueOf(precioDeLaColeccion));
+		 return historia + ". La coleccion entera tiene un precio de: " + String.valueOf(precioDeLaColeccion);
+	 }
 
 }
