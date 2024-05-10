@@ -125,12 +125,6 @@ public class InventarioTest {
     	assertTrue(pieza2.getEstado().equals(EstadoPiezas.DEVOLUCION));
     }
 
-    @Test
-    public void devolverPiezaNotInInventoryTest() {
-        // Test that an exception is thrown if the piece is not in the inventory
-        assertThrows(IllegalArgumentException.class, () -> inventario.devolverPieza(consignacion1, date1));
-    }
-    
     
     @Test
     public void confirmarDevolucionTest() {

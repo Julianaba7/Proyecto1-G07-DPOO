@@ -7,11 +7,13 @@ import USUARIOS.Operador;
 import USUARIOS.Propietario;
 import USUARIOS.Usuario;
 import galeria.Administrador;
+import PIEZAS.Escultura;
 
 import java.io.*;
 import java.util.Properties;
 
 import PAGOS.MetodoPago;
+import PIEZAS.Pieza;
 
 public class PersistenciaSerializar {
 	
@@ -33,6 +35,10 @@ public class PersistenciaSerializar {
 			
 			else if (rutaArchivo.equals("dataSerializacion/Admin.txt")) {
 				serializarAdministrador(rutaArchivo, (Administrador) object);
+			}
+			
+			else if (rutaArchivo.equals("dataSerializacion/Piezas.txt")) {
+				serializarPieza(rutaArchivo, (Pieza) object);
 			}
 		}
 		
@@ -132,6 +138,7 @@ public class PersistenciaSerializar {
             }
         }
     }
+	
 
     private void escribirEnArchivo(File archivo, Administrador administrador) throws IOException {
         FileWriter escribir = new FileWriter(archivo, true);
@@ -149,7 +156,24 @@ public class PersistenciaSerializar {
         lockFile.delete();
     }
 			
-	
+	public void serializarPieza(String rutaArchivo, Pieza pieza) throws IOException {
+		File archivo = new File(rutaArchivo);
+		if (!archivo.exists()) {
+			archivo.createNewFile();
+			FileWriter escribir = new FileWriter(archivo, true);
+			PrintWriter linea = new PrintWriter(escribir);
+			linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor());
+			linea.close();
+			escribir.close();
+		}else {
+			FileWriter escribir = new FileWriter(archivo, true);
+			PrintWriter linea = new PrintWriter(escribir);
+			linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor());
+			linea.close();
+			escribir.close();
+			
+		}
+	}
 	public static Administrador getAdministradorByID() throws IOException {
 		try (BufferedReader br = new BufferedReader(new FileReader("dataSerializacion/Admin.txt"))) {
 			String linea;
@@ -242,41 +266,4 @@ public class PersistenciaSerializar {
 			return usuario;
 		}
 	}
-	
-	public static void main(String[] args) throws IOException {
-		Propietario propietario = new Propietario("i", "l", "n", "p");
-		Propietario propietario2 = new Propietario("i2", "l2", "n2", "p2");
-		
-		Cajero empleado1 = new Cajero("ie1", "le1", "ne1", "pe1");
-		Empleado empleado2 = new Empleado("ie2", "le2", "ne2", "pe2");
-		Operador empleado3 = new Operador("ie3", "le3", "ne3", "pe3");
-		
-		Comprador comprador1 = new Comprador("c1", "cc2", "ccc3", "cccc4", 200.0, MetodoPago.EFECTIVO);
-		Comprador comprador2 = new Comprador("d1", "dd2", "ddd3", "dddd4", 200.0, MetodoPago.EFECTIVO);
-		
-		Administrador admin = new Administrador("ad", "ad", "ad", "ad");
-		
-		new PersistenciaSerializar("dataSerializacion/Admin.txt", admin);
-		Administrador adminre = PersistenciaSerializar.getAdministradorByID();
-		
-		new PersistenciaSerializar("dataSerializacion/Compradores.txt", comprador1);
-		new PersistenciaSerializar("dataSerializacion/Compradores.txt", comprador2);
-		Comprador comprador = PersistenciaSerializar.getCompradorByID("c1");
-		
-		new PersistenciaSerializar("dataSerializacion/Empleados.txt", empleado1);
-		new PersistenciaSerializar("dataSerializacion/Empleados.txt", empleado2);
-		new PersistenciaSerializar("dataSerializacion/Empleados.txt", empleado3);
-		Usuario usuario = PersistenciaSerializar.getEmpleadoByID("ie3");
-		
-		new PersistenciaSerializar("dataSerializacion/Propietarios.txt", propietario2);
-		new PersistenciaSerializar("dataSerializacion/Propietarios.txt", propietario);
-		Propietario proper = PersistenciaSerializar.getPropietarioByID("i2");
-		
-		System.out.println(proper.getId());
-		System.out.println(usuario.getRol());
-		System.out.println(comprador.getId());
-		System.out.println(adminre.getId());
-	}
-	
-
 }

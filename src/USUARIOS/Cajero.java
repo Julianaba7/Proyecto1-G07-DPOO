@@ -11,6 +11,7 @@ public class Cajero extends Usuario {
 
     public Cajero(String id, String nombre, String login, String password) {
         super(id, nombre, login, password);
+        this.rol = RolUsuarios.CAJERO;
         Cajero.pagos = new ArrayList<Pago>();
     }
 
