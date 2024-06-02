@@ -896,5 +896,4 @@ public static void main(String[] args) throws ParseException, IOException {
 	 consola.menuInicio();
    }
 
-
 }
