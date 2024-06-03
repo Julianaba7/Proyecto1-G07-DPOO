@@ -100,9 +100,9 @@ public class consultarHistoriaPiezaPanel extends JPanel{
                 }
                 
                 Oferta oferta = new Oferta(pieza, comprador);
-                inventario.historiaDePiezaVendida(oferta);
+                String mensaje = inventario.historiaDePiezaVendida(oferta);
                 
-                JOptionPane.showMessageDialog(consultarHistoriaPiezaPanel.this, "Historia Realizada Con exito");
+                JOptionPane.showMessageDialog(consultarHistoriaPiezaPanel.this, mensaje);
                 cardLayout.show(mainPanel, "AdminPanel");
         		
         		

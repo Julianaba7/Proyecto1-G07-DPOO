@@ -57,9 +57,9 @@ public class ConsultarHistoriaComprador extends JPanel{
 					e1.printStackTrace();
 				}
         		
-        		inventario.historiaComprador(comprador);
+        		String mensaje = inventario.historiaComprador(comprador);
         		
-        		JOptionPane.showMessageDialog(ConsultarHistoriaComprador.this, "Historia Realizada Con exito");
+        		JOptionPane.showMessageDialog(ConsultarHistoriaComprador.this, mensaje);
                 cardLayout.show(mainPanel, "AdminPanel");
         	
         	}

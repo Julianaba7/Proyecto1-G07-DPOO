@@ -20,6 +20,7 @@ import java.util.Properties;
 import PAGOS.MetodoPago;
 import PIEZAS.Pieza;
 import PIEZAS.PiezaExhibicion;
+import PIEZAS.PiezaSubasta;
 import PIEZAS.PiezaVenta;
 
 public class PersistenciaSerializar {
@@ -50,6 +51,10 @@ public class PersistenciaSerializar {
 			
 			else if(rutaArchivo.equals("dataSerializacion/PiezasExhibicion.txt")) {
 				serializarPiezaExhibicion(rutaArchivo, (PiezaExhibicion) object);
+			}
+			
+			else if(rutaArchivo.equals("dataSerializacion/PiezasSubasta.txt")) {
+				serializarPiezaSubasta(rutaArchivo, (PiezaSubasta) object);
 			}
 		}
 		
@@ -166,6 +171,97 @@ public class PersistenciaSerializar {
     private void eliminarBloqueo(File lockFile) {
         lockFile.delete();
     }
+    
+    public void serializarPiezaSubasta(String rutaArchivo, PiezaSubasta pieza) throws IOException {
+		File archivo = new File(rutaArchivo);
+		if (!archivo.exists()) {
+			archivo.createNewFile();
+			FileWriter escribir = new FileWriter(archivo, true);
+			PrintWriter linea = new PrintWriter(escribir);
+			
+			if (pieza.getTipoPieza().toString().equals("Video")) {
+				Video tipoPieza = (Video) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Video"+":"
+						+String.valueOf(tipoPieza.getDuracion())+":"+tipoPieza.getFormato()+":"+tipoPieza.getResolucion()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());
+				
+			} else if(pieza.getTipoPieza().toString().equals("Pintura")) {
+				Pintura tipoPieza = (Pintura) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Pintura"+":"
+						+String.valueOf(tipoPieza.getAlto())+":"+String.valueOf(tipoPieza.getAncho())+":"+tipoPieza.getTecnicaUtilizada()+":"+tipoPieza.getTipoPintura()+":"+tipoPieza.getEstilo()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Impresion")) {
+				Impresion tipoPieza = (Impresion) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Impresion"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getLargo())+":"+tipoPieza.getTipoImpresion()+":"+tipoPieza.getTipoPapel()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Fotografia")) {
+				Fotografia tipoPieza = (Fotografia) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Fotografia"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getLargo())+":"+tipoPieza.getTecnicaUtilizada()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Escultura")) {
+				Escultura tipoPieza = (Escultura) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Escultura"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getProfundidad())+":"+tipoPieza.getMaterial()+":"+tipoPieza.getTecnicaUtilizada()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());
+			}
+			
+			linea.close();
+			escribir.close();
+			
+		}else {
+			FileWriter escribir = new FileWriter(archivo, true);
+			PrintWriter linea = new PrintWriter(escribir);
+			if (pieza.getTipoPieza().toString().equals("Video")) {
+				Video tipoPieza = (Video) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Video"+":"
+						+String.valueOf(tipoPieza.getDuracion())+":"+tipoPieza.getFormato()+":"+tipoPieza.getResolucion()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());
+				
+			} else if(pieza.getTipoPieza().toString().equals("Pintura")) {
+				Pintura tipoPieza = (Pintura) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Pintura"+":"
+						+String.valueOf(tipoPieza.getAlto())+":"+String.valueOf(tipoPieza.getAncho())+":"+tipoPieza.getTecnicaUtilizada()+":"+tipoPieza.getTipoPintura()+":"+tipoPieza.getEstilo()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Impresion")) {
+				Impresion tipoPieza = (Impresion) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Impresion"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getLargo())+":"+tipoPieza.getTipoImpresion()+":"+tipoPieza.getTipoPapel()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Fotografia")) {
+				Fotografia tipoPieza = (Fotografia) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Fotografia"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getLargo())+":"+tipoPieza.getTecnicaUtilizada()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());		
+				
+			}else if(pieza.getTipoPieza().toString().equals("Escultura")) {
+				Escultura tipoPieza = (Escultura) pieza.getTipoPieza();
+				linea.println(pieza.getTitulo()+":"+pieza.getAño()+":"+pieza.getLugarCreacion()+":"+pieza.getAutor()+":"+pieza.getEstado()+":"+String.valueOf(pieza.getValorMinimo())+":"+String.valueOf(pieza.getValorInicial())+":"+"Escultura"+":"
+						+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getAncho())+":"+String.valueOf(tipoPieza.getProfundidad())+":"+tipoPieza.getMaterial()+":"+tipoPieza.getTecnicaUtilizada()+":"+
+						pieza.getPropietario().getId()+":"+pieza.getPropietario().getNombre()+":"+pieza.getPropietario().getLogin()+":"
+						+pieza.getPropietario().getPassword());
+			}
+			
+			linea.close();
+			escribir.close();
+			
+		}
+	}
 			
 	public void serializarPiezaVenta(String rutaArchivo, PiezaVenta pieza) throws IOException {
 		File archivo = new File(rutaArchivo);
@@ -562,6 +658,72 @@ public class PersistenciaSerializar {
 
                     if (tipoPieza != null) {
                         PiezaExhibicion pieza = new PiezaExhibicion(titulo, año, lugarCreacion, autor, propietario, tipoPieza);
+                        return pieza;
+                    }
+                }
+            }
+        }
+        return null; // Si no se encuentra la pieza con el título especificado
+    }
+	
+	public static PiezaSubasta getPiezaSubastaByTitulo(String titulo) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader("dataSerializacion/PiezasSubasta.txt"))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(":");
+                String piezaTitulo = datos[0];
+                
+                if (piezaTitulo.equals(titulo)) {
+                    String año = datos[1];
+                    String lugarCreacion = datos[2];
+                    String autor = datos[3];
+                    String estado = datos[4];
+                    double valorMinimo = Double.parseDouble(datos[5]);
+                    double valorInicial = Double.parseDouble(datos[6]);
+                    String tipoPiezaStr = datos[7];
+                    
+                    String idPropietario = datos[datos.length - 4];
+                    String nombrePropietario = datos[datos.length - 3];
+                    String loginPropietario = datos[datos.length - 2];
+                    String passwordPropietario = datos[datos.length - 1];
+                    Propietario propietario = new Propietario(idPropietario, nombrePropietario, loginPropietario, passwordPropietario);
+
+                    TipoPieza tipoPieza = null;
+
+                    if (tipoPiezaStr.equals("Video")) {
+                        double duracion = Double.parseDouble(datos[8]);
+                        String formato = datos[9];
+                        String resolucion = datos[10];
+                        tipoPieza = new Video(duracion, formato, resolucion);
+                    } else if (tipoPiezaStr.equals("Pintura")) {
+                        double alto = Double.parseDouble(datos[8]);
+                        double ancho = Double.parseDouble(datos[9]);
+                        String tecnicaUtilizada = datos[10];
+                        String tipoPintura = datos[11];
+                        String estilo = datos[12];
+                        tipoPieza = new Pintura(alto, ancho, tipoPintura, tecnicaUtilizada, estilo);
+                    } else if (tipoPiezaStr.equals("Impresion")) {
+                        double ancho = Double.parseDouble(datos[8]);
+                        double largo = Double.parseDouble(datos[9]);
+                        String tipoImpresion = datos[10];
+                        String tipoPapel = datos[11];
+                        tipoPieza = new Impresion(ancho, largo, tipoImpresion, tipoPapel);
+                    } else if (tipoPiezaStr.equals("Fotografia")) {
+                        double ancho = Double.parseDouble(datos[8]);
+                        double largo = Double.parseDouble(datos[9]);
+                        String tecnicaUtilizada = datos[10];
+                        tipoPieza = new Fotografia(ancho, largo, tecnicaUtilizada);
+                    } else if (tipoPiezaStr.equals("Escultura")) {
+                        double ancho = Double.parseDouble(datos[8]);
+                        double alto = Double.parseDouble(datos[9]);
+                        double profundidad = Double.parseDouble(datos[10]);
+                        String material = datos[11];
+                        String tecnicaUtilizada = datos[12];
+                        tipoPieza = new Escultura(alto, ancho, profundidad, material, tecnicaUtilizada);
+                    }
+
+                    if (tipoPieza != null) {
+                        PiezaSubasta pieza = new PiezaSubasta(titulo, año, lugarCreacion, autor, valorInicial, valorMinimo, propietario, tipoPieza);
                         return pieza;
                     }
                 }
